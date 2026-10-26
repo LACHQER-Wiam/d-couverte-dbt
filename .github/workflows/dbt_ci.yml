@@ -1,9 +1,10 @@
-name: dbt CI 
 
-on: 
-push:
-  branches:
-    - master
+name: dbt CI
+
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   dbt:
@@ -11,16 +12,16 @@ jobs:
 
     steps:
       - name: Récupérer le code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Installer uv
         uses: astral-sh/setup-uv@v6
 
-      - name: Installer dbt
-        uses: uv sync --locked
-        
-      - name: Vérifier la config
-        run: dbt debug
+      - name: Installer les dépendances
+        run: uv sync --locked
+
+      - name: Vérifier la configuration
+        run: uv run dbt debug
 
       - name: Seed, modèles et tests
-        run: dbt build
+        run: uv run dbt build
