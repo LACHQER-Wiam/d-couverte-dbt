@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_ventes
+    description: "Ventes nettoyées, une ligne par vente"
+    columns:
+      - name: vente_id
+        description: "Identifiant unique de la vente"
+        data_tests:
+          - not_null
+          - unique
+  - name: ventes_par_produit
+    description: "Ventes agrégées par produit"
+    columns:
+      - name: produit
+        description: "Nom du produit"
+        data_tests:
+          - not_null

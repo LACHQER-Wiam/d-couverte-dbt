@@ -1,0 +1,26 @@
+name: dbt CI 
+
+on: 
+pull_request:
+  branches:
+    - main
+
+jobs:
+  dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v3
+
+      - name: Installer uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Installer dbt
+        uses: uv sync --locked
+        
+      - name: Vérifier la config
+        run: dbt debug
+
+      - name: Seed, modèles et tests
+        run: dbt build
